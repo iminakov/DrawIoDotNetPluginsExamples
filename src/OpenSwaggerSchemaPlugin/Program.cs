@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Blazor.Hosting;
+using System.Runtime.CompilerServices;
 
-namespace SimplePlug
+[assembly: InternalsVisibleTo("OpenSwaggerSchemaPluginTest")]
+
+namespace OpenSwaggerSchemaPlugin
 {
     public class Program
     {

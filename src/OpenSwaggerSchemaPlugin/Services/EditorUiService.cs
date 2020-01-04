@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimplePlug.Services
+namespace OpenSwaggerSchemaPlugin.Services
 {
     public class EditorUiService : BaseAsyncJsInteropService, IEditorUiService
     {
@@ -16,12 +16,12 @@ namespace SimplePlug.Services
 
         public async Task LogContent(string content)
         {
-            await RunAction("SimplePlugJs", "log", content);
+            await RunAction<OpenSwaggerSchemaContract>(c => c.log, content);
         }
 
         public async Task OpenAndReadFile(Action<string> asyncResultCallBack)
         {
-            await RunAsyncAction("SimplePlugJs", "openFile", asyncResultCallBack);
+            await RunAsyncAction<OpenSwaggerSchemaContract>(c => c.openFile, asyncResultCallBack);
         }
     }
 }

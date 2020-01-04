@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimplePlug.Services
+namespace OpenSwaggerSchemaPlugin.Services
 {
     public interface IEditorUiService
     {

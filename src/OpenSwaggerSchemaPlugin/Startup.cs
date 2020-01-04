@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
-using SimplePlug.Services;
+using OpenSwaggerSchemaPlugin.Services;
 
-namespace SimplePlug
+namespace OpenSwaggerSchemaPlugin
 {
     public class Startup
     {
@@ -14,7 +14,7 @@ namespace SimplePlug
 
         public void Configure(IComponentsApplicationBuilder app)
         {
-            app.AddComponent<App>("simplePlugApp");
+            app.AddComponent<App>("OpenSwaggerSchemaPluginApp");
         }
     }
 }

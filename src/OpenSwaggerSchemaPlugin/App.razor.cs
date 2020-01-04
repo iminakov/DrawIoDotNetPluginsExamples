@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using SimplePlug.Services;
+using OpenSwaggerSchemaPlugin.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimplePlug
+namespace OpenSwaggerSchemaPlugin
 {
     public class AppBase : ComponentBase
     {
@@ -21,8 +21,8 @@ namespace SimplePlug
         [Inject]
         public IEditorUiService EditorUiService { get; set; }
 
-        [JSInvokableAttribute("HandleMenuActionFromCSharp")]
-        public static Task HandleMenuActionFromCSharp()
+        [JSInvokableAttribute("HandleMenuActionOpenSwaggerSchema")]
+        public static Task HandleMenuActionOpenSwaggerSchema()
         {
             singleInstance.EditorUiService.OpenAndReadFile(singleInstance.OnLoadFile);
             return Task.CompletedTask;

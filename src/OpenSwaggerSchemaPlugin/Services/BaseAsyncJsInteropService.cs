@@ -3,9 +3,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
-namespace SimplePlug.Services
+namespace OpenSwaggerSchemaPlugin.Services
 {
     public abstract class BaseAsyncJsInteropService
     {
@@ -36,6 +38,28 @@ namespace SimplePlug.Services
             }
 
             return _callBackService;
+        }
+
+        protected async Task RunAsyncAction<T>(Expression<Func<T, Action>> expression, Action<string> asyncResultCallBack)
+        {
+            await _jSRuntime.InvokeVoidAsync($"{typeof(T).Name}.{GetMethodName(expression)}", GetDotNetObjectRef(), nameof(GetAsyncResultCallback), PushRequestGuid(asyncResultCallBack));
+        }
+
+        protected async Task RunAction<T>(Expression<Func<T, Action>> expression, params object[] args)
+        {
+            await _jSRuntime.InvokeVoidAsync($"{typeof(T).Name}.{GetMethodName(expression)}", args);
+        }
+
+        internal string GetMethodName<T>(Expression<Func<T, Action>> expression)
+        {
+            var unaryExpression = (UnaryExpression)expression.Body;
+            var methodCallExpression = (MethodCallExpression)unaryExpression.Operand;
+            return ((MemberInfo)((ConstantExpression)methodCallExpression.Object).Value).Name;
+        }
+
+        protected async Task RunAction<T>(string jsObject, string jsObjectMethod, params object[] args)
+        {
+            await _jSRuntime.InvokeVoidAsync($"{jsObject}.{jsObjectMethod}", args);
         }
 
         protected async Task RunAsyncAction(string jsObject, string jsObjectMethod, Action<string> asyncResultCallBack)
