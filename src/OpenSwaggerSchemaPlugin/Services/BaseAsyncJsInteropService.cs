@@ -57,21 +57,6 @@ namespace OpenSwaggerSchemaPlugin.Services
             return ((MemberInfo)((ConstantExpression)methodCallExpression.Object).Value).Name;
         }
 
-        protected async Task RunAction<T>(string jsObject, string jsObjectMethod, params object[] args)
-        {
-            await _jSRuntime.InvokeVoidAsync($"{jsObject}.{jsObjectMethod}", args);
-        }
-
-        protected async Task RunAsyncAction(string jsObject, string jsObjectMethod, Action<string> asyncResultCallBack)
-        {
-            await _jSRuntime.InvokeVoidAsync($"{jsObject}.{jsObjectMethod}", GetDotNetObjectRef(), nameof(GetAsyncResultCallback), PushRequestGuid(asyncResultCallBack));
-        }
-
-        protected async Task RunAction(string jsObject, string jsObjectMethod, params object[] args)
-        {
-            await _jSRuntime.InvokeVoidAsync($"{jsObject}.{jsObjectMethod}", args);
-        }
-
         [JSInvokable]
         public void GetAsyncResultCallback(string asyncRequestGuid, string data)
         {
