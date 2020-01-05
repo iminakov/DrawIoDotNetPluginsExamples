@@ -6,6 +6,10 @@
 
         onMenuClick: function () {
             this.dotnetContractReference.invokeMethodAsync('HandleMenuActionOpenSwaggerSchema');
+        },
+
+        onLoadFile: function (content) {
+            this.dotnetContractReference.invokeMethodAsync('OnLoadFile', content);
         }
     };
 }());

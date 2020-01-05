@@ -1,14 +1,28 @@
-﻿using System;
+﻿using OpenSwaggerSchemaPlugin.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace OpenSwaggerSchemaPlugin.JsContracts
 {
-    public interface OpenSwaggerSchemaJsContract
+    public class OpenSwaggerSchemaJsContract
     {
-        void Log();
+        private readonly JsContractInteropService _jsService;
 
-        void OpenFile();
+        public OpenSwaggerSchemaJsContract(JsContractInteropService jsService)
+        {
+            _jsService = jsService;
+        }
+
+        public async Task Log(string content)
+        {
+            await _jsService.RunAction<OpenSwaggerSchemaJsContract>(nameof(Log), content);
+        }
+
+        public async Task OpenFile()
+        {
+            await _jsService.RunAction<OpenSwaggerSchemaJsContract>(nameof(OpenFile));
+        }
     }
 }

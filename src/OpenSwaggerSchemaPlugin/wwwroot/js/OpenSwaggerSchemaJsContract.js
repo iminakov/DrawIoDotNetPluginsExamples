@@ -5,7 +5,7 @@
             this.ui = ui;
         },
 
-        openFile: function (instance, callbackMethod, requestId) {
+        openFile: function () {
 
             var input = document.createElement('input');
             input.setAttribute('type', 'file');
@@ -15,8 +15,7 @@
 
                     var reader = new FileReader();
                     reader.onload = function (evt) {
-                        console.log('run here!!!');
-                        instance.invokeMethodAsync(callbackMethod, requestId, evt.target.result);
+                        OpenSwaggerSchemaDotNetContract.onLoadFile(evt.target.result);
                     };
 
                     reader.readAsText(input.files[0], "UTF-8");

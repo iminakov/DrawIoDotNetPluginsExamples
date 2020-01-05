@@ -14,32 +14,9 @@ namespace OpenSwaggerSchemaPlugin.Services
     {
         private readonly IJSRuntime _jSRuntime;
 
-        private DotNetObjectReference<JsContractInteropService> _callBackService;
-
-        private static object CreateDotNetObjectRefSyncObj = new object();
-
-        private readonly ConcurrentDictionary<string, Action<string>> _asyncResultsCallback = new ConcurrentDictionary<string, Action<string>>();
-
         public JsContractInteropService(IJSRuntime jSRuntime)
         {
             _jSRuntime = jSRuntime;
-        }
-
-        // Hack to fix https://github.com/aspnet/AspNetCore/issues/11159    
-        private DotNetObjectReference<JsContractInteropService> GetDotNetObjectRef()
-        {
-            if (_callBackService == null)
-            {
-                lock (CreateDotNetObjectRefSyncObj)
-                {
-                    if (_callBackService == null)
-                    {
-                        _callBackService = DotNetObjectReference.Create(this);
-                    }
-                }
-            }
-
-            return _callBackService;
         }
 
         public async Task<DotNetObjectReference<TReference>> SetReference<TJsContract, TReference>(Expression<Func<TJsContract, Action>> expression, TReference service)
@@ -55,41 +32,16 @@ namespace OpenSwaggerSchemaPlugin.Services
             await _jSRuntime.InvokeVoidAsync($"{typeof(T).Name}.{GetMethodName(expression).ToJs()}", args);
         }
 
+        public async Task RunAction<T>(string methodName, params object[] args)
+        {
+            await _jSRuntime.InvokeVoidAsync($"{typeof(T).Name}.{methodName.ToJs()}", args);
+        }
+
         internal string GetMethodName<T>(Expression<Func<T, Action>> expression)
         {
             var unaryExpression = (UnaryExpression)expression.Body;
             var methodCallExpression = (MethodCallExpression)unaryExpression.Operand;
             return ((MemberInfo)((ConstantExpression)methodCallExpression.Object).Value).Name;
-        }
-
-        public async Task RunAsyncAction<T>(Expression<Func<T, Action>> expression, Action<string> asyncResultCallBack)
-        {
-            await _jSRuntime.InvokeVoidAsync($"{typeof(T).Name}.{GetMethodName(expression).ToJs()}", GetDotNetObjectRef(), nameof(GetAsyncResultCallback), PushRequestGuid(asyncResultCallBack));
-        }
-
-        [JSInvokable]
-        public void GetAsyncResultCallback(string asyncRequestGuid, string data)
-        {
-            TakeRequestGuid(asyncRequestGuid)?.Invoke(data);
-        }
-
-        private string PushRequestGuid(Action<string> asyncResultCallBack)
-        {
-            var guid = Guid.NewGuid().ToString();
-
-            _asyncResultsCallback.TryAdd(guid, asyncResultCallBack);
-
-            return guid;
-        }
-
-        private Action<string> TakeRequestGuid(string asyncRequestGuid)
-        {
-            if (_asyncResultsCallback.TryRemove(asyncRequestGuid, out var action))
-            {
-                return action;
-            }
-
-            return null;
         }
     }
 }

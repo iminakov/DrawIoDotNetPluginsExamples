@@ -14,7 +14,7 @@
     mxResources.parse('openSwaggerSchema=Swagger Schema');
 
     ui.actions.addAction('openSwaggerSchema', function () {
-        OpenSwaggerSchemaDotNetContract.run();
+        OpenSwaggerSchemaDotNetContract.onMenuClick();
     });
 
     var theMenu = ui.menus.get('openFrom');

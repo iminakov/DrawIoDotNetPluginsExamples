@@ -1,29 +1,28 @@
-﻿using OpenSwaggerSchemaPlugin.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
 namespace OpenSwaggerSchemaPlugin.JsContracts
 {
     public class OpenSwaggerSchemaDotNetContract
     {
-        private readonly IEditorUiService _editorUiService;
+        private readonly OpenSwaggerSchemaJsContract _jsContract;
 
-        public OpenSwaggerSchemaDotNetContract(IEditorUiService EditorUiService)
+        public OpenSwaggerSchemaDotNetContract(OpenSwaggerSchemaJsContract jsContract)
         {
-            _editorUiService = EditorUiService;
+            _jsContract = jsContract;
         }
 
+        [JSInvokable("HandleMenuActionOpenSwaggerSchema")]
         public Task HandleMenuActionOpenSwaggerSchema()
         {
-            _editorUiService.OpenAndReadFile();
+            _jsContract.OpenFile();
             return Task.CompletedTask;
         }
 
+        [JSInvokable("OnLoadFile")]
         public Task OnLoadFile(string content)
         {
-            _editorUiService.LogContent(content).GetAwaiter().GetResult();
+            _jsContract.Log(content);
             return Task.CompletedTask;
         }
 

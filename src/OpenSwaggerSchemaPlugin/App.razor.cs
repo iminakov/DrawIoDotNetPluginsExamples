@@ -13,7 +13,7 @@ namespace OpenSwaggerSchemaPlugin
     {
         protected override Task OnInitializedAsync()
         {
-            JsContractInteropService.SetReference<OpenSwaggerSchemaDotNetContract, OpenSwaggerSchemaDotNetContract>(c => c.SetDotNetReference, DotNetContract).GetAwaiter().GetResult();
+            JsContractInteropService.SetReference<OpenSwaggerSchemaDotNetContract, OpenSwaggerSchemaDotNetContract>(c => c.SetDotNetReference, DotNetContract);
             return base.OnInitializedAsync();
         }
 

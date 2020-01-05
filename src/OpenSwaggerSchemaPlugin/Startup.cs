@@ -12,7 +12,7 @@ namespace OpenSwaggerSchemaPlugin
         {
             services.AddSingleton<OpenSwaggerSchemaDotNetContract>();
             services.AddSingleton<JsContractInteropService>();
-            services.AddSingleton<IEditorUiService>(x => new EditorUiService(x.GetService<JsContractInteropService>()));
+            services.AddSingleton<OpenSwaggerSchemaJsContract>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
