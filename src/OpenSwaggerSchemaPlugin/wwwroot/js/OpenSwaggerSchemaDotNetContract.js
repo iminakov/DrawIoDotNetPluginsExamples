@@ -5,7 +5,7 @@
         },
 
         onMenuClick: function () {
-            this.dotnetContractReference.invokeMethodAsync('HandleMenuActionOpenSwaggerSchema');
+            this.dotnetContractReference.invokeMethodAsync('OnMenuClick');
         },
 
         onLoadFile: function (content) {

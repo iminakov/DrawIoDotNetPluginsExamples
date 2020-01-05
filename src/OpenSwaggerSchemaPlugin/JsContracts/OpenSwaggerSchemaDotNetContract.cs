@@ -12,8 +12,8 @@ namespace OpenSwaggerSchemaPlugin.JsContracts
             _jsContract = jsContract;
         }
 
-        [JSInvokable("HandleMenuActionOpenSwaggerSchema")]
-        public Task HandleMenuActionOpenSwaggerSchema()
+        [JSInvokable("OnMenuClick")]
+        public Task OnMenuClick()
         {
             _jsContract.OpenFile();
             return Task.CompletedTask;

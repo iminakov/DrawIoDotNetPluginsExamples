@@ -1,7 +1,4 @@
 ﻿using OpenSwaggerSchemaPlugin.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OpenSwaggerSchemaPlugin.JsContracts
@@ -18,6 +15,11 @@ namespace OpenSwaggerSchemaPlugin.JsContracts
         public async Task Log(string content)
         {
             await _jsService.RunAction<OpenSwaggerSchemaJsContract>(nameof(Log), content);
+        }
+
+        public async Task LoadXml(string xmlContent)
+        {
+            await _jsService.RunAction<OpenSwaggerSchemaJsContract>(nameof(LoadXml), xmlContent);
         }
 
         public async Task OpenFile()

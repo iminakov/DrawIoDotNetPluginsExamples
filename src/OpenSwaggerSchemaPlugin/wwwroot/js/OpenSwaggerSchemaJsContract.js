@@ -28,5 +28,24 @@
         log: function (content) {
             console.log(content);
         }
+
+        loadXml: function (xmlContent) {
+            let error = null;
+            this.ui.editor.graph.model.beginUpdate();
+            try {
+                this.ui.editor.setGraphXml(mxUtils.parseXml(xmlContent).documentElement);
+                this.ui.hideDialog();
+            }
+            catch (e) {
+                error = e;
+            }
+            finally {
+                this.ui.editor.graph.model.endUpdate();
+            }
+
+            if (error != null) {
+                mxUtils.alert(error.message);
+            }
+        }
     };
 }());
