@@ -11,7 +11,7 @@
 
     mxscript(pluginLocation + 'js/blazor.webassembly.js');
 
-    mxResources.parse('OpenApiDocumentSchema=Swagger Schema');
+    mxResources.parse('OpenApiDocumentSchema=Open Api Document');
 
     ui.actions.addAction('OpenApiDocumentSchema', function () {
         OpenApiDocumentSchemaDotNetContract.onMenuClick();
