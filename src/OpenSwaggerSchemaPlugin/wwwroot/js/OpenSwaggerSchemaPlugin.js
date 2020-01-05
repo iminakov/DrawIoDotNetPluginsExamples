@@ -1,20 +1,20 @@
 ﻿Draw.loadPlugin(function (ui) {
     const pluginLocation = 'http://localhost:6930/';
-    const pluginDomElement = 'OpenSwaggerSchemaPluginApp';
+    const pluginDomElement = 'OpenApiDocumentSchemaPluginApp';
 
     document.getElementsByTagName("body")[0].appendChild(document.createElement(pluginDomElement));
 
-    mxscript(pluginLocation + 'js/OpenSwaggerSchemaDotNetContract.js');
-    mxscript(pluginLocation + 'js/OpenSwaggerSchemaJsContract.js', function () {
-        OpenSwaggerSchemaJsContract.setEditorUi(ui);
+    mxscript(pluginLocation + 'js/OpenApiDocumentSchemaDotNetContract.js');
+    mxscript(pluginLocation + 'js/OpenApiDocumentSchemaJsContract.js', function () {
+        OpenApiDocumentSchemaJsContract.setEditorUi(ui);
     });
 
     mxscript(pluginLocation + 'js/blazor.webassembly.js');
 
-    mxResources.parse('openSwaggerSchema=Swagger Schema');
+    mxResources.parse('OpenApiDocumentSchema=Swagger Schema');
 
-    ui.actions.addAction('openSwaggerSchema', function () {
-        OpenSwaggerSchemaDotNetContract.onMenuClick();
+    ui.actions.addAction('OpenApiDocumentSchema', function () {
+        OpenApiDocumentSchemaDotNetContract.onMenuClick();
     });
 
     var theMenu = ui.menus.get('openFrom');
@@ -22,6 +22,6 @@
 
     theMenu.funct = function (menu, parent) {
         oldMenu.apply(this, arguments);
-        ui.menus.addMenuItems(menu, ['openSwaggerSchema'], parent);
+        ui.menus.addMenuItems(menu, ['OpenApiDocumentSchema'], parent);
     };
 });

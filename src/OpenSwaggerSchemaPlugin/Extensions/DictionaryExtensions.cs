@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenSwaggerSchemaPlugin.Extensions
+namespace OpenApiDocumentSchemaPlugin.Extensions
 {
     public static class DictionaryExtensions
     {

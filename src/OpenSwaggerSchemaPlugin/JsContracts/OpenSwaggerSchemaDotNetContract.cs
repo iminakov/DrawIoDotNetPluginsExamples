@@ -1,13 +1,16 @@
 ﻿using Microsoft.JSInterop;
+using NSwag;
+using OpenApiDocumentSchemaPlugin.Model;
+using System;
 using System.Threading.Tasks;
 
-namespace OpenSwaggerSchemaPlugin.JsContracts
+namespace OpenApiDocumentSchemaPlugin.JsContracts
 {
-    public class OpenSwaggerSchemaDotNetContract
+    public class OpenApiDocumentSchemaDotNetContract
     {
-        private readonly OpenSwaggerSchemaJsContract _jsContract;
+        private readonly OpenApiDocumentSchemaJsContract _jsContract;
 
-        public OpenSwaggerSchemaDotNetContract(OpenSwaggerSchemaJsContract jsContract)
+        public OpenApiDocumentSchemaDotNetContract(OpenApiDocumentSchemaJsContract jsContract)
         {
             _jsContract = jsContract;
         }
@@ -20,10 +23,18 @@ namespace OpenSwaggerSchemaPlugin.JsContracts
         }
 
         [JSInvokable("OnLoadFile")]
-        public Task OnLoadFile(string content)
+        public async Task OnLoadFile(string content)
         {
-            _jsContract.Log(content);
-            return Task.CompletedTask;
+            try
+            {
+                var openApiDocument = await OpenApiDocument.FromJsonAsync(content);
+                var openApiDiagramBuilder = new OpenApiDiagramBuilder(openApiDocument, new DiagramXmlBuilder());
+                _jsContract.LoadXml(openApiDiagramBuilder.BuildDiagram());
+            }
+            catch(Exception ex)
+            {
+                _jsContract.ShowError(ex.Message);
+            }
         }
 
         public void SetDotNetReference() {}

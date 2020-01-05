@@ -1,24 +1,32 @@
-﻿using OpenSwaggerSchemaPlugin.Extensions;
+﻿using OpenApiDocumentSchemaPlugin.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace OpenSwaggerSchemaPlugin.Model
+namespace OpenApiDocumentSchemaPlugin.Model
 {
-    public class DiagramXmlBuilder
+    public class DiagramXmlBuilder : IDiagramXmlBuilder
     {
         private readonly XmlDocument _document;
         private readonly XmlElement _graphModel;
         private readonly XmlElement _root;
-        private readonly string _docGuid = Guid.NewGuid().ToString();
+        private readonly string _docGuid;
         private int nextId = 1;
 
         private string GetNextId() => $"{_docGuid}_{nextId++}";
 
+
+        public DiagramXmlBuilder(string diagramGuid)
+            : this()
+        {
+            _docGuid = diagramGuid;
+        }
+
         public DiagramXmlBuilder()
         {
+            _docGuid = Guid.NewGuid().ToString();
             _document = new XmlDocument();
             _graphModel = _document.CreateElement("mxGraphModel");
             _graphModel.SetAttribute("grid", "1");
@@ -36,6 +44,15 @@ namespace OpenSwaggerSchemaPlugin.Model
             _document.AppendChild(_graphModel);
             _root = _document.CreateElement("root");
             _graphModel.AppendChild(_root);
+
+            AddMxCell(new Dictionary<string, string> {
+                { "id", "0" }
+            });
+
+            AddMxCell(new Dictionary<string, string> {
+                { "id", "1" },
+                { "parent", "0" },
+            });
         }
 
         public string AddVertex(string value)
@@ -56,7 +73,7 @@ namespace OpenSwaggerSchemaPlugin.Model
         {
             var id = GetNextId();
 
-            AddMxCell(new Dictionary<string, string> {
+            var cell = AddMxCell(new Dictionary<string, string> {
                 { "id", id },
                 { "edge", "1" },
                 { "parent", "1" },
@@ -65,6 +82,8 @@ namespace OpenSwaggerSchemaPlugin.Model
             .AddIfNotNull("value", value)
             .AddIfNotNull("target", targetId)
             .AddIfNotNull("source", sourceId));
+
+            cell.AppendChild(CreateRelativeGeometry());
 
             return id;
         }
@@ -99,7 +118,15 @@ namespace OpenSwaggerSchemaPlugin.Model
             return geometry;
         }
 
-        public override string ToString()
+        private XmlElement CreateRelativeGeometry()
+        {
+            var geometry = _document.CreateElement("mxGeometry");
+            geometry.SetAttribute("relative", "1");
+            geometry.SetAttribute("as", "geometry");
+            return geometry;
+        }
+
+        public string GetDiagramXml()
         {
             return _document.InnerXml;
         }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.JSInterop;
-using OpenSwaggerSchemaPlugin.Extensions;
+using OpenApiDocumentSchemaPlugin.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace OpenSwaggerSchemaPlugin.Services
+namespace OpenApiDocumentSchemaPlugin.Services
 {
     public class JsContractInteropService
     {

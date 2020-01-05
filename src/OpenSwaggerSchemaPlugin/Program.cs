@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Blazor.Hosting;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("OpenSwaggerSchemaPluginTest")]
+[assembly: InternalsVisibleTo("OpenApiDocumentSchemaPluginTest")]
 
-namespace OpenSwaggerSchemaPlugin
+namespace OpenApiDocumentSchemaPlugin
 {
     public class Program
     {

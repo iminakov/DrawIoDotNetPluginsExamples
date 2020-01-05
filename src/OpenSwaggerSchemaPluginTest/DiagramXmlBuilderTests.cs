@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
-using OpenSwaggerSchemaPlugin.Model;
+using OpenApiDocumentSchemaPlugin.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OpenSwaggerSchemaPluginTest
+namespace OpenApiDocumentSchemaPluginTest
 {
     [TestFixture]
     public class DiagramXmlBuilderTests

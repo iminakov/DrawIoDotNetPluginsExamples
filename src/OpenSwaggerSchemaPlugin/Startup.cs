@@ -1,23 +1,23 @@
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
-using OpenSwaggerSchemaPlugin.JsContracts;
-using OpenSwaggerSchemaPlugin.Services;
+using OpenApiDocumentSchemaPlugin.JsContracts;
+using OpenApiDocumentSchemaPlugin.Services;
 
-namespace OpenSwaggerSchemaPlugin
+namespace OpenApiDocumentSchemaPlugin
 {
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<OpenSwaggerSchemaDotNetContract>();
+            services.AddSingleton<OpenApiDocumentSchemaDotNetContract>();
             services.AddSingleton<JsContractInteropService>();
-            services.AddSingleton<OpenSwaggerSchemaJsContract>();
+            services.AddSingleton<OpenApiDocumentSchemaJsContract>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
         {
-            app.AddComponent<App>("OpenSwaggerSchemaPluginApp");
+            app.AddComponent<App>("OpenApiDocumentSchemaPluginApp");
         }
     }
 }

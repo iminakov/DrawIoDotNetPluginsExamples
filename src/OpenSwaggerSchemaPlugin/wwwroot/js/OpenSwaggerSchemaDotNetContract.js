@@ -1,4 +1,4 @@
-﻿var OpenSwaggerSchemaDotNetContract = (function () {
+﻿var OpenApiDocumentSchemaDotNetContract = (function () {
     return {
         setDotNetReference: function (dotnetContractReference) {
             this.dotnetContractReference = dotnetContractReference;

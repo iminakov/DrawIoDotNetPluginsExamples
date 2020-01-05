@@ -1,9 +1,9 @@
 using Microsoft.JSInterop;
 using Moq;
 using NUnit.Framework;
-using OpenSwaggerSchemaPlugin.Services;
+using OpenApiDocumentSchemaPlugin.Services;
 
-namespace OpenSwaggerSchemaPluginTest
+namespace OpenApiDocumentSchemaPluginTest
 {
     [TestFixture]
     public class JsContractInteropServiceTests

@@ -1,4 +1,4 @@
-﻿var OpenSwaggerSchemaJsContract = (function () {
+﻿var OpenApiDocumentSchemaJsContract = (function () {
     return {
 
         setEditorUi: function (ui) {
@@ -15,7 +15,7 @@
 
                     var reader = new FileReader();
                     reader.onload = function (evt) {
-                        OpenSwaggerSchemaDotNetContract.onLoadFile(evt.target.result);
+                        OpenApiDocumentSchemaDotNetContract.onLoadFile(evt.target.result);
                     };
 
                     reader.readAsText(input.files[0], "UTF-8");
@@ -27,7 +27,12 @@
 
         log: function (content) {
             console.log(content);
-        }
+        },
+
+        showError: function (message) {
+            console.log(message);
+            mxUtils.alert(message);
+        },
 
         loadXml: function (xmlContent) {
             let error = null;

@@ -1,24 +1,24 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using OpenSwaggerSchemaPlugin.JsContracts;
-using OpenSwaggerSchemaPlugin.Services;
+using OpenApiDocumentSchemaPlugin.JsContracts;
+using OpenApiDocumentSchemaPlugin.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenSwaggerSchemaPlugin
+namespace OpenApiDocumentSchemaPlugin
 {
     public class AppBase : ComponentBase
     {
         protected override Task OnInitializedAsync()
         {
-            JsContractInteropService.SetReference<OpenSwaggerSchemaDotNetContract, OpenSwaggerSchemaDotNetContract>(c => c.SetDotNetReference, DotNetContract);
+            JsContractInteropService.SetReference<OpenApiDocumentSchemaDotNetContract, OpenApiDocumentSchemaDotNetContract>(c => c.SetDotNetReference, DotNetContract);
             return base.OnInitializedAsync();
         }
 
         [Inject]
-        public OpenSwaggerSchemaDotNetContract DotNetContract { get; set; }
+        public OpenApiDocumentSchemaDotNetContract DotNetContract { get; set; }
 
         [Inject]
         public JsContractInteropService JsContractInteropService { get; set; }
