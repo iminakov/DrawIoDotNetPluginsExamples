@@ -7,7 +7,7 @@ namespace OpenSwaggerSchemaPlugin.Services
 {
     public interface IEditorUiService
     {
-        Task OpenAndReadFile(Action<string> callBack);
+        Task OpenAndReadFile();
 
         Task LogContent(string content);
     }

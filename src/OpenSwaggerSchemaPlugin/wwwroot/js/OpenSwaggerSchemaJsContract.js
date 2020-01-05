@@ -1,12 +1,8 @@
-﻿var OpenSwaggerSchemaContract = (function () {
+﻿var OpenSwaggerSchemaJsContract = (function () {
     return {
 
-        init: function (ui) {
+        setEditorUi: function (ui) {
             this.ui = ui;
-        },
-
-        run: function () {
-            DotNet.invokeMethodAsync('OpenSwaggerSchemaPlugin', "HandleMenuActionOpenSwaggerSchema");
         },
 
         openFile: function (instance, callbackMethod, requestId) {

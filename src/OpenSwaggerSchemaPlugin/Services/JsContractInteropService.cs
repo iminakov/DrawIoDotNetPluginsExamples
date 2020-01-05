@@ -1,4 +1,5 @@
 ﻿using Microsoft.JSInterop;
+using OpenSwaggerSchemaPlugin.Extensions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -9,22 +10,23 @@ using System.Threading.Tasks;
 
 namespace OpenSwaggerSchemaPlugin.Services
 {
-    public abstract class BaseAsyncJsInteropService
+    public class JsContractInteropService
     {
-        protected readonly IJSRuntime _jSRuntime;
+        private readonly IJSRuntime _jSRuntime;
 
-        public BaseAsyncJsInteropService(IJSRuntime jSRuntime)
+        private DotNetObjectReference<JsContractInteropService> _callBackService;
+
+        private static object CreateDotNetObjectRefSyncObj = new object();
+
+        private readonly ConcurrentDictionary<string, Action<string>> _asyncResultsCallback = new ConcurrentDictionary<string, Action<string>>();
+
+        public JsContractInteropService(IJSRuntime jSRuntime)
         {
             _jSRuntime = jSRuntime;
         }
 
-        private DotNetObjectReference<BaseAsyncJsInteropService> _callBackService;
-
-        public static object CreateDotNetObjectRefSyncObj = new object();
-        public readonly ConcurrentDictionary<string, Action<string>> _asyncResultsCallback = new ConcurrentDictionary<string, Action<string>>();
-
         // Hack to fix https://github.com/aspnet/AspNetCore/issues/11159    
-        private DotNetObjectReference<BaseAsyncJsInteropService> GetDotNetObjectRef()
+        private DotNetObjectReference<JsContractInteropService> GetDotNetObjectRef()
         {
             if (_callBackService == null)
             {
@@ -40,14 +42,17 @@ namespace OpenSwaggerSchemaPlugin.Services
             return _callBackService;
         }
 
-        protected async Task RunAsyncAction<T>(Expression<Func<T, Action>> expression, Action<string> asyncResultCallBack)
+        public async Task<DotNetObjectReference<TReference>> SetReference<TJsContract, TReference>(Expression<Func<TJsContract, Action>> expression, TReference service)
+        where TReference : class
         {
-            await _jSRuntime.InvokeVoidAsync($"{typeof(T).Name}.{GetMethodName(expression)}", GetDotNetObjectRef(), nameof(GetAsyncResultCallback), PushRequestGuid(asyncResultCallBack));
+            var reference = DotNetObjectReference.Create(service);
+            await RunAction(expression, reference);
+            return reference;
         }
 
-        protected async Task RunAction<T>(Expression<Func<T, Action>> expression, params object[] args)
+        public async Task RunAction<T>(Expression<Func<T, Action>> expression, params object[] args)
         {
-            await _jSRuntime.InvokeVoidAsync($"{typeof(T).Name}.{GetMethodName(expression)}", args);
+            await _jSRuntime.InvokeVoidAsync($"{typeof(T).Name}.{GetMethodName(expression).ToJs()}", args);
         }
 
         internal string GetMethodName<T>(Expression<Func<T, Action>> expression)
@@ -57,13 +62,18 @@ namespace OpenSwaggerSchemaPlugin.Services
             return ((MemberInfo)((ConstantExpression)methodCallExpression.Object).Value).Name;
         }
 
+        public async Task RunAsyncAction<T>(Expression<Func<T, Action>> expression, Action<string> asyncResultCallBack)
+        {
+            await _jSRuntime.InvokeVoidAsync($"{typeof(T).Name}.{GetMethodName(expression).ToJs()}", GetDotNetObjectRef(), nameof(GetAsyncResultCallback), PushRequestGuid(asyncResultCallBack));
+        }
+
         [JSInvokable]
         public void GetAsyncResultCallback(string asyncRequestGuid, string data)
         {
             TakeRequestGuid(asyncRequestGuid)?.Invoke(data);
         }
 
-        protected string PushRequestGuid(Action<string> asyncResultCallBack)
+        private string PushRequestGuid(Action<string> asyncResultCallBack)
         {
             var guid = Guid.NewGuid().ToString();
 
@@ -72,7 +82,7 @@ namespace OpenSwaggerSchemaPlugin.Services
             return guid;
         }
 
-        protected Action<string> TakeRequestGuid(string asyncRequestGuid)
+        private Action<string> TakeRequestGuid(string asyncRequestGuid)
         {
             if (_asyncResultsCallback.TryRemove(asyncRequestGuid, out var action))
             {

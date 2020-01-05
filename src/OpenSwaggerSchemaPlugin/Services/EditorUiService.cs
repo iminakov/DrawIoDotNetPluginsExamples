@@ -1,27 +1,26 @@
-﻿using Microsoft.JSInterop;
+﻿using OpenSwaggerSchemaPlugin.JsContracts;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OpenSwaggerSchemaPlugin.Services
 {
-    public class EditorUiService : BaseAsyncJsInteropService, IEditorUiService
+    public class EditorUiService : IEditorUiService
     {
-        public EditorUiService(IJSRuntime jSRuntime)
-            : base(jSRuntime)
+        private readonly JsContractInteropService _jsService;
+
+        public EditorUiService(JsContractInteropService jsService)
         {
+            _jsService = jsService;
         }
 
         public async Task LogContent(string content)
         {
-            await RunAction<OpenSwaggerSchemaContract>(c => c.log, content);
+            await _jsService.RunAction<OpenSwaggerSchemaJsContract>(c => c.Log, content);
         }
 
-        public async Task OpenAndReadFile(Action<string> asyncResultCallBack)
+        public async Task OpenAndReadFile()
         {
-            await RunAsyncAction<OpenSwaggerSchemaContract>(c => c.openFile, asyncResultCallBack);
+            await _jsService.RunAction<OpenSwaggerSchemaJsContract>(c => c.OpenFile);
         }
     }
 }

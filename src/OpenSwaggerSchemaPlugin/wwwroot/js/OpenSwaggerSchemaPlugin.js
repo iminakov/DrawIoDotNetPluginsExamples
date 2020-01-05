@@ -1,20 +1,20 @@
 ﻿Draw.loadPlugin(function (ui) {
     const pluginLocation = 'http://localhost:6930/';
     const pluginDomElement = 'OpenSwaggerSchemaPluginApp';
-    let pluginContract;
 
     document.getElementsByTagName("body")[0].appendChild(document.createElement(pluginDomElement));
 
-    mxscript(pluginLocation + 'js/blazor.webassembly.js');
-    mxscript(pluginLocation + 'js/OpenSwaggerSchemaContract.js', function () {
-        pluginContract = OpenSwaggerSchemaContract;
-        pluginContract.init(ui);
+    mxscript(pluginLocation + 'js/OpenSwaggerSchemaDotNetContract.js');
+    mxscript(pluginLocation + 'js/OpenSwaggerSchemaJsContract.js', function () {
+        OpenSwaggerSchemaJsContract.setEditorUi(ui);
     });
+
+    mxscript(pluginLocation + 'js/blazor.webassembly.js');
 
     mxResources.parse('openSwaggerSchema=Swagger Schema');
 
     ui.actions.addAction('openSwaggerSchema', function () {
-        pluginContract.run();
+        OpenSwaggerSchemaDotNetContract.run();
     });
 
     var theMenu = ui.menus.get('openFrom');
