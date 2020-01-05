@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenSwaggerSchemaPlugin\OpenApiDocumentSchemaPlugin.csproj" />
+    <ProjectReference Include="..\OpenApiDocumentSchemaPlugin\OpenApiDocumentSchemaPlugin.csproj" />
   </ItemGroup>
 
 </Project>
