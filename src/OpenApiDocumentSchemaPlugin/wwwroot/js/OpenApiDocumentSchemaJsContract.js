@@ -11,7 +11,7 @@
             input.setAttribute('type', 'file');
 
             mxEvent.addListener(input, 'change', mxUtils.bind(this, function () {
-                if (input.files !== null) {
+                if (input.files !== null && input.files.length > 0) {
 
                     var reader = new FileReader();
                     reader.onload = function (evt) {

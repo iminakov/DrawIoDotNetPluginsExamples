@@ -37,7 +37,5 @@ namespace OpenApiDocumentSchemaPlugin.JsContracts
                 await _jsContract.ShowError(ex.Message);
             }
         }
-
-        public void SetDotNetReference() {}
     }
 }

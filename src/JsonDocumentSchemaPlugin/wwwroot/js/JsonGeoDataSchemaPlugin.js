@@ -3,7 +3,7 @@ JsonGeoDataSchemaPluginLocation = 'http://localhost:10613/';
 
 Draw.loadPlugin(function (ui) {
 
-    const loadScript = function (path, action) {
+    const loadScript = (path, action) => {
         var scriptElement = document.createElement('script');
         scriptElement.setAttribute('src', path);
         document.getElementsByTagName("body")[0].appendChild(scriptElement);
@@ -12,7 +12,7 @@ Draw.loadPlugin(function (ui) {
             var onLoadExecuted = false;
 
             scriptElement.onload = scriptElement.onreadystatechange = function () {
-                if (!onLoadExecuted && (!this.readyState || this.readyState == 'complete')) {
+                if (!onLoadExecuted && (!this.readyState || this.readyState === 'complete')) {
                     onLoadExecuted = true;
                     action();
                 }
@@ -29,11 +29,13 @@ Draw.loadPlugin(function (ui) {
         document.getElementsByTagName("body")[0].appendChild(document.createElement(pluginDomElement));
     });
 
+    const menuActionName = 'JsonGeoDataSchema';
+
     if (mxResources) {
-        mxResources.parse('JsonGeoDataSchema=Open Json Geo Data');
+        mxResources.parse(menuActionName + '=Open Json Geo Data');
     }
 
-    ui.actions.addAction('JsonGeoDataSchema', function () {
+    ui.actions.addAction(menuActionName, function () {
         JsonGeoDataSchemaDotNetContract.onMenuClick();
     });
 
@@ -42,7 +44,7 @@ Draw.loadPlugin(function (ui) {
 
     openFromMenu.funct = function (menu, parent) {
         oldOpenFromMenuFunc.apply(this, arguments);
-        ui.menus.addMenuItems(menu, ['JsonGeoDataSchema'], parent);
+        ui.menus.addMenuItems(menu, [menuActionName], parent);
     };
 
     const insertMenu = ui.menus.get('insert');
@@ -50,6 +52,6 @@ Draw.loadPlugin(function (ui) {
 
     insertMenu.funct = function (menu, parent) {
         oldInsertMenu.apply(this, arguments);
-        ui.menus.addMenuItems(menu, ['JsonGeoDataSchema'], parent);
+        ui.menus.addMenuItems(menu, [menuActionName], parent);
     };
 });
