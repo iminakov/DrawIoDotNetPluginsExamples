@@ -1,0 +1,19 @@
+{
+  "collection" : [
+    {
+      "name": "Moscow",
+      "latitude": 53.1,
+      "longitude": 55.1
+    },
+    {
+      "name": "Bejing",
+      "latitude": 67.1,
+      "longitude": 58.1
+    },
+    {
+      "name": "New York",
+      "latitude": -53.1,
+      "longitude": 55.1
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 ﻿var OpenApiDocumentSchemaPluginLocation = 'file://D:/GIT/DrawIoBlazorMapDiagram/publish_simple/OpenApiDocumentSchemaPlugin/dist/';
-//var OpenApiDocumentSchemaPluginLocation = 'http://localhost:6930/';
+OpenApiDocumentSchemaPluginLocation = 'http://localhost:6930/';
 
 Draw.loadPlugin(function (ui) {
 

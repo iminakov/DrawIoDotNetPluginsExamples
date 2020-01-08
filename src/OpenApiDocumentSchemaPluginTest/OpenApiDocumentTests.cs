@@ -14,7 +14,7 @@ namespace DrawIoDotNetPluginsTest
         [Test]
         public async Task OpenApiDocumentCanBeLoadedFromJsonFile()
         {
-            string result = LoadResourceData("OpenApiDocumentSchemaPluginTest.examples.test.json");
+            string result = LoadResourceData("DrawIoDotNetPluginsTest.examples.test.json");
 
             OpenApiDocument document = await OpenApiDocument.FromJsonAsync(result);
 
@@ -24,8 +24,8 @@ namespace DrawIoDotNetPluginsTest
         [Test]
         public async Task OpenApiDocumentCanCreateXmlDiagram()
         {
-            string result = LoadResourceData("OpenApiDocumentSchemaPluginTest.examples.test.json");
-            string targetXmlDiagram = LoadResourceData("OpenApiDocumentSchemaPluginTest.examples.targetXml.txt");
+            string result = LoadResourceData("DrawIoDotNetPluginsTest.examples.test.json");
+            string targetXmlDiagram = LoadResourceData("DrawIoDotNetPluginsTest.examples.targetXml.txt");
 
             OpenApiDocument document = await OpenApiDocument.FromJsonAsync(result);
             OpenApiDiagramBuilder builder = new OpenApiDiagramBuilder(document, new DiagramXmlBuilder("111"));

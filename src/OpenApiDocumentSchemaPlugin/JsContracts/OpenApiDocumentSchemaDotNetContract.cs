@@ -1,4 +1,5 @@
-﻿using BaseDrawIoPlugin.XmlLayout;
+﻿using BaseDrawIoPlugin;
+using BaseDrawIoPlugin.XmlLayout;
 using Microsoft.JSInterop;
 using NSwag;
 using OpenApiDocumentSchemaPlugin.Services;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OpenApiDocumentSchemaPlugin.JsContracts
 {
-    public class OpenApiDocumentSchemaDotNetContract
+    public class OpenApiDocumentSchemaDotNetContract : IDotNetInteropContract
     {
         private readonly OpenApiDocumentSchemaJsContract _jsContract;
 
@@ -17,10 +18,9 @@ namespace OpenApiDocumentSchemaPlugin.JsContracts
         }
 
         [JSInvokable("OnMenuClick")]
-        public Task OnMenuClick()
+        public async Task OnMenuClick()
         {
-            _jsContract.OpenFile();
-            return Task.CompletedTask;
+            await _jsContract.OpenFile().ConfigureAwait(false);
         }
 
         [JSInvokable("OnLoadFile")]
@@ -30,11 +30,11 @@ namespace OpenApiDocumentSchemaPlugin.JsContracts
             {
                 var openApiDocument = await OpenApiDocument.FromJsonAsync(content);
                 var openApiDiagramBuilder = new OpenApiDiagramBuilder(openApiDocument, new DiagramXmlBuilder());
-                _jsContract.LoadXml(openApiDiagramBuilder.BuildDiagram());
+                await _jsContract.LoadXml(openApiDiagramBuilder.BuildDiagram());
             }
             catch(Exception ex)
             {
-                _jsContract.ShowError(ex.Message);
+                await _jsContract.ShowError(ex.Message);
             }
         }
 

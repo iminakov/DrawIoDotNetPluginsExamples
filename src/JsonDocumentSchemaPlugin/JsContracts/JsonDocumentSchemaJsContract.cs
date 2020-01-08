@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace JsonGeoDataSchemaPlugin.JsContracts
 {
-    public class JsonGeoDataSchemaJsContract : BaseDrawIoJsContract<JsonGeoDataSchemaJsContract>
+    public class JsonGeoDataSchemaJsContract : BaseDrawIoJsContract<JsonGeoDataSchemaJsContract>, IJsInteropContract
     {
-        public JsonGeoDataSchemaJsContract(JsContractInteropService jsService)
+        public JsonGeoDataSchemaJsContract(IJsContractInteropService jsService)
             : base(jsService)
         {
         }

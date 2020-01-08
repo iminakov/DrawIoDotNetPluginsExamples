@@ -1,9 +1,6 @@
 ﻿using BaseDrawIoPlugin;
 using JsonGeoDataSchemaPlugin.JsContracts;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace JsonGeoDataSchemaPlugin
@@ -12,7 +9,7 @@ namespace JsonGeoDataSchemaPlugin
     {
         protected override Task OnInitializedAsync()
         {
-            JsContractInteropService.SetReference<JsonGeoDataSchemaDotNetContract, JsonGeoDataSchemaDotNetContract>(c => c.SetDotNetReference, DotNetContract);
+            _ = JsContractInteropService.SetReferenceInJsContext(DotNetContract);
             return base.OnInitializedAsync();
         }
 
@@ -20,6 +17,6 @@ namespace JsonGeoDataSchemaPlugin
         public JsonGeoDataSchemaDotNetContract DotNetContract { get; set; }
 
         [Inject]
-        public JsContractInteropService JsContractInteropService { get; set; }
+        public IJsContractInteropService JsContractInteropService { get; set; }
     }
 }

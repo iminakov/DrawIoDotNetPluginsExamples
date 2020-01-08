@@ -1,4 +1,5 @@
-﻿using BaseDrawIoPlugin.XmlLayout;
+﻿using BaseDrawIoPlugin;
+using BaseDrawIoPlugin.XmlLayout;
 using JsonGeoDataSchemaPlugin.Services;
 using Microsoft.JSInterop;
 using System;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JsonGeoDataSchemaPlugin.JsContracts
 {
-    public class JsonGeoDataSchemaDotNetContract
+    public class JsonGeoDataSchemaDotNetContract : IDotNetInteropContract
     {
         private readonly JsonGeoDataSchemaJsContract _jsContract;
 
@@ -16,10 +17,9 @@ namespace JsonGeoDataSchemaPlugin.JsContracts
         }
 
         [JSInvokable("OnMenuClick")]
-        public Task OnMenuClick()
+        public async Task OnMenuClick()
         {
-            _jsContract.OpenFile();
-            return Task.CompletedTask;
+            await _jsContract.OpenFile().ConfigureAwait(false);
         }
 
         [JSInvokable("OnLoadFile")]
@@ -28,14 +28,12 @@ namespace JsonGeoDataSchemaPlugin.JsContracts
             try
             {
                 var builder = new JsonGeoDataDiagramBuilder(content, new DiagramXmlBuilder());
-                _jsContract.LoadXml(builder.BuildDiagram());
+                await _jsContract.LoadXml(builder.BuildDiagram());
             }
             catch(Exception ex)
             {
-                _jsContract.ShowError(ex.Message);
+                await _jsContract.ShowError(ex.Message);
             }
         }
-
-        public void SetDotNetReference() {}
     }
 }

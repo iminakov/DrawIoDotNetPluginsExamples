@@ -3,32 +3,33 @@
 namespace BaseDrawIoPlugin.JsContracts
 {
     public abstract class BaseDrawIoJsContract<T>
+        where T : IJsInteropContract
     {
-        private readonly JsContractInteropService _jsService;
+        private readonly IJsContractInteropService _jsService;
 
-        public BaseDrawIoJsContract(JsContractInteropService jsService)
+        public BaseDrawIoJsContract(IJsContractInteropService jsService)
         {
             _jsService = jsService;
         }
 
         public async Task Log(string content)
         {
-            await _jsService.RunAction<T>(nameof(Log), content);
+            await _jsService.RunJsAction<T>(nameof(Log), content);
         }
 
         public async Task ShowError(string message)
         {
-            await _jsService.RunAction<T>(nameof(ShowError), message);
+            await _jsService.RunJsAction<T>(nameof(ShowError), message);
         }
 
         public async Task LoadXml(string xmlContent)
         {
-            await _jsService.RunAction<T>(nameof(LoadXml), xmlContent);
+            await _jsService.RunJsAction<T>(nameof(LoadXml), xmlContent);
         }
 
         public async Task OpenFile()
         {
-            await _jsService.RunAction<T>(nameof(OpenFile));
+            await _jsService.RunJsAction<T>(nameof(OpenFile));
         }
     }
 }

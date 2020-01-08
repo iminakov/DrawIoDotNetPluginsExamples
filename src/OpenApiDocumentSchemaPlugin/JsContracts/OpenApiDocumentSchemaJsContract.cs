@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace OpenApiDocumentSchemaPlugin.JsContracts
 {
-    public class OpenApiDocumentSchemaJsContract : BaseDrawIoJsContract<OpenApiDocumentSchemaJsContract>
+    public class OpenApiDocumentSchemaJsContract : BaseDrawIoJsContract<OpenApiDocumentSchemaJsContract>, IJsInteropContract
     {
-        public OpenApiDocumentSchemaJsContract(JsContractInteropService jsService)
+        public OpenApiDocumentSchemaJsContract(IJsContractInteropService jsService)
             : base(jsService)
         {
         }

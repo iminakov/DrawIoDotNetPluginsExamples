@@ -1,9 +1,7 @@
 using BaseDrawIoPlugin;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.JSInterop;
 using OpenApiDocumentSchemaPlugin.JsContracts;
-using OpenApiDocumentSchemaPlugin.Services;
 
 namespace OpenApiDocumentSchemaPlugin
 {

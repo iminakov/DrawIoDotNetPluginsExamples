@@ -1,10 +1,6 @@
 ﻿using BaseDrawIoPlugin;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using OpenApiDocumentSchemaPlugin.JsContracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OpenApiDocumentSchemaPlugin
@@ -13,7 +9,7 @@ namespace OpenApiDocumentSchemaPlugin
     {
         protected override Task OnInitializedAsync()
         {
-            JsContractInteropService.SetReference<OpenApiDocumentSchemaDotNetContract, OpenApiDocumentSchemaDotNetContract>(c => c.SetDotNetReference, DotNetContract);
+            _ = JsContractInteropService.SetReferenceInJsContext(DotNetContract);
             return base.OnInitializedAsync();
         }
 
@@ -21,6 +17,6 @@ namespace OpenApiDocumentSchemaPlugin
         public OpenApiDocumentSchemaDotNetContract DotNetContract { get; set; }
 
         [Inject]
-        public JsContractInteropService JsContractInteropService { get; set; }
+        public IJsContractInteropService JsContractInteropService { get; set; }
     }
 }

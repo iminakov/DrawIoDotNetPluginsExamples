@@ -1,5 +1,5 @@
 ﻿var JsonGeoDataSchemaPluginLocation = 'file://D:/GIT/DrawIoBlazorMapDiagram/publish_simple/JsonGeoDataSchemaPlugin/dist/';
-//var JsonGeoDataSchemaPluginLocation = 'http://localhost:10613/';
+JsonGeoDataSchemaPluginLocation = 'http://localhost:10613/';
 
 Draw.loadPlugin(function (ui) {
 
@@ -34,7 +34,7 @@ Draw.loadPlugin(function (ui) {
     }
 
     ui.actions.addAction('JsonGeoDataSchema', function () {
-        OpenApiDocumentSchemaDotNetContract.onMenuClick();
+        JsonGeoDataSchemaDotNetContract.onMenuClick();
     });
 
     const openFromMenu = ui.menus.get('openFrom');
