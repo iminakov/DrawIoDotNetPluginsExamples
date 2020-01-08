@@ -1,4 +1,3 @@
-# Draw.io DotNet Blazor Plugins
-Draw.io electron/web diagram plug-ins based on .NET Blazor technology.
+# Draw.io DotNet Blazor Plugins Examples
 
-Build and show swagger specification draw.io diagram plugin.
+This is simple example, how to implement Open Api Schema Diagram in C# Blazor project and use it in native Draw.io js web/electron application.
