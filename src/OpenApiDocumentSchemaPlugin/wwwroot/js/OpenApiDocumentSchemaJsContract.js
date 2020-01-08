@@ -48,7 +48,7 @@
                 this.ui.editor.graph.model.endUpdate();
             }
 
-            if (error != null) {
+            if (error) {
                 mxUtils.alert(error.message);
             }
         }

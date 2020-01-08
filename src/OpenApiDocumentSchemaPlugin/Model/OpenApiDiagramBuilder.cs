@@ -1,4 +1,5 @@
-﻿using NSwag;
+﻿using NJsonSchema;
+using NSwag;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,15 +33,15 @@ namespace OpenApiDocumentSchemaPlugin.Model
             {
                 foreach (var property in definition.Value.Properties)
                 {
+                    var sourceId = definitionCellIds[definition.Value];
+                    
                     if (property.Value.Reference != null)
                     {
-                        var sourceId = definitionCellIds[definition.Value];
                         var targetId = definitionCellIds[property.Value.Reference];
                         _diagramXmlBuilder.AddEdge(property.Value.Name, sourceId, targetId);
                     }
                     else if (property.Value.Item?.Reference != null)
                     {
-                        var sourceId = definitionCellIds[definition.Value];
                         var targetId = definitionCellIds[property.Value.Item.Reference];
                         _diagramXmlBuilder.AddEdge(property.Value.Name, sourceId, targetId);
                     }
@@ -70,34 +71,43 @@ namespace OpenApiDocumentSchemaPlugin.Model
                 {
                     var operationCellId = _diagramXmlBuilder.AddVertex(pathMethodItem.Key);
                     _diagramXmlBuilder.AddEdge(null, pathCellId, operationCellId);
+                    
+                    AddParametersRelationship(definitionCellIds, pathMethodItem, operationCellId);
+                    AddResponseRelationships(definitionCellIds, pathMethodItem, operationCellId);
+                }
+            }
+        }
 
-                    foreach (var parameter in pathMethodItem.Value.Parameters)
-                    {
-                        if (parameter.Schema?.Reference != null)
-                        {
-                            var targetId = definitionCellIds[parameter.Schema.Reference];
-                            _diagramXmlBuilder.AddEdge(parameter.Name, operationCellId, targetId);
-                        }
-                        else if (parameter.Schema?.Item?.Reference != null)
-                        {
-                            var targetId = definitionCellIds[parameter.Schema.Item.Reference];
-                            _diagramXmlBuilder.AddEdge(parameter.Name, operationCellId, targetId);
-                        }
-                    }
+        private void AddParametersRelationship(Dictionary<JsonSchema, string> definitionCellIds, KeyValuePair<string, OpenApiOperation> pathMethodItem, string operationCellId)
+        {
+            foreach (var parameter in pathMethodItem.Value.Parameters)
+            {
+                if (parameter.Schema?.Reference != null)
+                {
+                    var targetId = definitionCellIds[parameter.Schema.Reference];
+                    _diagramXmlBuilder.AddEdge(parameter.Name, operationCellId, targetId);
+                }
+                else if (parameter.Schema?.Item?.Reference != null)
+                {
+                    var targetId = definitionCellIds[parameter.Schema.Item.Reference];
+                    _diagramXmlBuilder.AddEdge(parameter.Name, operationCellId, targetId);
+                }
+            }
+        }
 
-                    foreach (var response in pathMethodItem.Value.Responses)
-                    {
-                        if (response.Value.Schema?.Reference != null)
-                        {
-                            var targetId = definitionCellIds[response.Value.Schema.Reference];
-                            _diagramXmlBuilder.AddEdge($"Response {response.Key}", operationCellId, targetId);
-                        }
-                        else if (response.Value.Schema?.Item?.Reference != null)
-                        {
-                            var targetId = definitionCellIds[response.Value.Schema.Item.Reference];
-                            _diagramXmlBuilder.AddEdge($"Response {response.Key}", operationCellId, targetId);
-                        }
-                    }
+        private void AddResponseRelationships(Dictionary<JsonSchema, string> definitionCellIds, KeyValuePair<string, OpenApiOperation> pathMethodItem, string operationCellId)
+        {
+            foreach (var response in pathMethodItem.Value.Responses)
+            {
+                if (response.Value.Schema?.Reference != null)
+                {
+                    var targetId = definitionCellIds[response.Value.Schema.Reference];
+                    _diagramXmlBuilder.AddEdge($"Response {response.Key}", operationCellId, targetId);
+                }
+                else if (response.Value.Schema?.Item?.Reference != null)
+                {
+                    var targetId = definitionCellIds[response.Value.Schema.Item.Reference];
+                    _diagramXmlBuilder.AddEdge($"Response {response.Key}", operationCellId, targetId);
                 }
             }
         }
