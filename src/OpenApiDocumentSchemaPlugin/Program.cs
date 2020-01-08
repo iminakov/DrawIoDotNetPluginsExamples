@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Blazor.Hosting;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("OpenApiDocumentSchemaPluginTest")]
-
 namespace OpenApiDocumentSchemaPlugin
 {
     public class Program

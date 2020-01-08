@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Blazor.Hosting;
 
-namespace JsonDocumentSchemaPlugin
+namespace JsonGeoDataSchemaPlugin
 {
     public class Program
     {

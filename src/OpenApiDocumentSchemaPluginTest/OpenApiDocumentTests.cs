@@ -1,11 +1,12 @@
-﻿using NSwag;
+﻿using BaseDrawIoPlugin.XmlLayout;
+using NSwag;
 using NUnit.Framework;
-using OpenApiDocumentSchemaPlugin.Model;
+using OpenApiDocumentSchemaPlugin.Services;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace OpenApiDocumentSchemaPluginTest
+namespace DrawIoDotNetPluginsTest
 {
     [TestFixture]
     public class OpenApiDocumentLoadTests

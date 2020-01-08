@@ -5,7 +5,15 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenApiDocumentSchemaPlugin", "OpenApiDocumentSchemaPlugin\OpenApiDocumentSchemaPlugin.csproj", "{69032F76-2D1C-4066-ACDB-52F105C5FBAC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenApiDocumentSchemaPluginTest", "OpenApiDocumentSchemaPluginTest\OpenApiDocumentSchemaPluginTest.csproj", "{8F91BDC4-A715-4D16-A63C-245F1272D251}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawIoDotNetPluginsTest", "OpenApiDocumentSchemaPluginTest\DrawIoDotNetPluginsTest.csproj", "{8F91BDC4-A715-4D16-A63C-245F1272D251}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonGeoDataSchemaPlugin", "JsonDocumentSchemaPlugin\JsonGeoDataSchemaPlugin.csproj", "{8848268E-D481-46FE-9946-82F755606E25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1E5F9D5E-C6EA-42D4-B3B7-05F7FC66DF7C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D66EBC31-3C46-4D38-9ABE-D43C8D1BC5CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseDrawIoPlugin", "BaseDrawIoPlugin\BaseDrawIoPlugin.csproj", "{17D297A5-6ACE-48AE-AF30-63E4B9F0C119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +29,23 @@ Global
 		{8F91BDC4-A715-4D16-A63C-245F1272D251}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F91BDC4-A715-4D16-A63C-245F1272D251}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F91BDC4-A715-4D16-A63C-245F1272D251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8848268E-D481-46FE-9946-82F755606E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8848268E-D481-46FE-9946-82F755606E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8848268E-D481-46FE-9946-82F755606E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8848268E-D481-46FE-9946-82F755606E25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17D297A5-6ACE-48AE-AF30-63E4B9F0C119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17D297A5-6ACE-48AE-AF30-63E4B9F0C119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17D297A5-6ACE-48AE-AF30-63E4B9F0C119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17D297A5-6ACE-48AE-AF30-63E4B9F0C119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{69032F76-2D1C-4066-ACDB-52F105C5FBAC} = {D66EBC31-3C46-4D38-9ABE-D43C8D1BC5CB}
+		{8F91BDC4-A715-4D16-A63C-245F1272D251} = {1E5F9D5E-C6EA-42D4-B3B7-05F7FC66DF7C}
+		{8848268E-D481-46FE-9946-82F755606E25} = {D66EBC31-3C46-4D38-9ABE-D43C8D1BC5CB}
+		{17D297A5-6ACE-48AE-AF30-63E4B9F0C119} = {D66EBC31-3C46-4D38-9ABE-D43C8D1BC5CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AC25DC84-37A2-45D6-96F1-020762052A58}

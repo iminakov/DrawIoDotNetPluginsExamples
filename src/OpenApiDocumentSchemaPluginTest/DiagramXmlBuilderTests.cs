@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using OpenApiDocumentSchemaPlugin.Model;
+﻿using BaseDrawIoPlugin.XmlLayout;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OpenApiDocumentSchemaPluginTest
+namespace DrawIoDotNetPluginsTest
 {
     [TestFixture]
     public class DiagramXmlBuilderTests

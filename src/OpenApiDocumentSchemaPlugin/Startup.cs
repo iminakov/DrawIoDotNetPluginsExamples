@@ -1,3 +1,4 @@
+using BaseDrawIoPlugin;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;

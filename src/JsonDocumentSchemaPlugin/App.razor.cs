@@ -1,24 +1,23 @@
 ﻿using BaseDrawIoPlugin;
+using JsonGeoDataSchemaPlugin.JsContracts;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-using OpenApiDocumentSchemaPlugin.JsContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenApiDocumentSchemaPlugin
+namespace JsonGeoDataSchemaPlugin
 {
     public class AppBase : ComponentBase
     {
         protected override Task OnInitializedAsync()
         {
-            JsContractInteropService.SetReference<OpenApiDocumentSchemaDotNetContract, OpenApiDocumentSchemaDotNetContract>(c => c.SetDotNetReference, DotNetContract);
+            JsContractInteropService.SetReference<JsonGeoDataSchemaDotNetContract, JsonGeoDataSchemaDotNetContract>(c => c.SetDotNetReference, DotNetContract);
             return base.OnInitializedAsync();
         }
 
         [Inject]
-        public OpenApiDocumentSchemaDotNetContract DotNetContract { get; set; }
+        public JsonGeoDataSchemaDotNetContract DotNetContract { get; set; }
 
         [Inject]
         public JsContractInteropService JsContractInteropService { get; set; }
