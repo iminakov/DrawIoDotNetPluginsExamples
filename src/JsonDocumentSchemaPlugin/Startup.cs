@@ -2,6 +2,7 @@ using BaseDrawIoPlugin;
 using JsonGeoDataSchemaPlugin.JsContracts;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 
 namespace JsonGeoDataSchemaPlugin
 {
@@ -10,7 +11,7 @@ namespace JsonGeoDataSchemaPlugin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<JsonGeoDataSchemaDotNetContract>();
-            services.AddSingleton<JsContractInteropService>();
+            services.AddSingleton<IJsContractInteropService>(c => new JsContractInteropService(c.GetService<IJSRuntime>()));
             services.AddSingleton<JsonGeoDataSchemaJsContract>();
         }
 
