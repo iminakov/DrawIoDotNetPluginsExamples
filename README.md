@@ -1,3 +1,4 @@
 # Draw.io DotNet Blazor Plugins Examples
 
-This is simple example, how to implement Open Api Schema Diagram in C# Blazor project and use it in native Draw.io js web/electron application.
+This is source code for article: How to implement plug-in on C# Blazor for native JavaScript application. Open API schema diagram for Draw.io. 
+
