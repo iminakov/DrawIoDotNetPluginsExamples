@@ -1,6 +1,6 @@
 # Draw.io DotNet Blazor Plugins Examples
 
-This is source code project for an article: [How to implement plug-in on C# Blazor for native JavaScript application. Open API schema diagram for Draw.io.](https://www.c-sharpcorner.com/article/how-to-implement-plug-in-on-c-sharp-blazor-for-native-javascript-application-open-ap/)
+This is source code project for an article: [How to implement plug-in on C# Blazor for native JavaScript application. Open API schema diagram for Draw.io.](https://www.c-sharpcorner.com/article/how-to-implement-plug-in-on-c-sharp-blazor-for-native-javascript-application-open-ap/Default.aspx)
 
 **Download and start project:**
 
